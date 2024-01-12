@@ -23,20 +23,17 @@ export default function App() {
 
     const handleStartStop = () => {
         setIsRunning(!isRunning);
-        if (!isRunning && time > 0) {
-            // Starting again, add a new lap
-            setLapEndTimes((prev) => [...prev, time]);
-        }
     };
 
+    // This function handles the Lap when running, and Reset when not
     const handleLapReset = () => {
         if (isRunning) {
-            // Record the end time for the lap
-            setLapEndTimes((prev) => [...prev, time]);
+        // Record the end time for the lap
+        setLapEndTimes((prev) => [...prev, time]);
         } else {
-            // Reset
-            setTime(0);
-            setLapEndTimes([]);
+        // Reset
+        setTime(0);
+        setLapEndTimes([]);
         }
     };
 
