@@ -1,0 +1,160 @@
+/* Reset default margins and paddings */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Prevents scrollbars from appearing */
+    background-color: #1e1e1e;
+    /* Sets the background color to black */
+}
+
+/* Ensure the root element fills the entire window */
+#root {
+    height: 100%;
+}
+
+/* Main container styles */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #0a0a0a;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+    /* Apple font style */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Stopwatch display styles */
+.stopwatch-display {
+    font-size: 76px;
+    font-weight: 200;
+    letter-spacing: 0.1rem;
+    margin-top: 20px;
+    margin-bottom: 2rem;
+}
+
+/* Button container styles */
+.buttons-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+}
+
+/* Button styles */
+.button {
+    padding: 1rem 2rem;
+    /* Keep the original padding */
+    min-width: 200px;
+    /* Added a minimum width to make buttons longer */
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    /* Ensures that min-width takes effect */
+    box-sizing: border-box;
+    /* Ensures padding is included in the width */
+}
+
+/* Specific styles for the start button */
+.start-button {
+    background-color: #28cd41;
+    /* Apple Green */
+}
+
+/* Specific styles for the lap button */
+.lap-button {
+    background-color: #8e8e93;
+    /* Apple Gray */
+}
+
+/* Specific styles for the stop button */
+.stop-button {
+    background-color: #ff3b30;
+    /* Apple Red */
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* Lap list container styles */
+.laps-container {
+    width: 100%;
+    max-width: 500px;
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-top: 0;
+}
+
+.laps-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lap-item {
+    background-color: #333;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+
+.lap-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Added to handle the last lap item border */
+.lap-item:not(:last-child) {
+    border-bottom: 1px solid #555;
+}
+
+.laps-table {
+    color: white;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 2rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #555;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.table-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Scrollable content for laps */
+.table-content {
+    overflow-y: auto;
+    max-height: 400px;
+    /* Adjust the max height as needed */
+}

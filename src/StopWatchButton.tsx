@@ -1,4 +1,5 @@
 import React from 'react';
+import './StopwatchStyles.css';
 
 interface StopWatchButtonProps {
     onPrimary: () => void;
@@ -17,17 +18,23 @@ const StopWatchButton: React.FC<StopWatchButtonProps> = ({
     isRunning,
     hasStarted,
 }) => {
-    const buttonStyle = {
-        // Define your button styles here
-    };
-
     return (
-        <div>
-            <button onClick={onPrimary} style={buttonStyle}>
-                {primaryLabel}
+        <div className="buttons-container">
+            {/* Always display the Lap or Reset button first */}
+            <button 
+                className={`button ${isRunning ? 'lap-button' : 'reset-button'}`}
+                onClick={onSecondary} 
+                disabled={!isRunning && !hasStarted}
+            >
+                {isRunning ? "Lap" : "Reset"}
             </button>
-            <button onClick={onSecondary} style={buttonStyle} disabled={!isRunning && !hasStarted}>
-                {secondaryLabel}
+
+            {/* Display the Start or Stop button second */}
+            <button 
+                className={`button ${isRunning ? 'stop-button' : 'start-button'}`} 
+                onClick={onPrimary}
+            >
+                {isRunning ? "Stop" : "Start"}
             </button>
         </div>
     );
