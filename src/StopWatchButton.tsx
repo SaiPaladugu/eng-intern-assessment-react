@@ -1,20 +1,34 @@
 import React from 'react';
 
 interface StopWatchButtonProps {
-    onStart: () => void;
-    onStop: () => void;
-    onReset: () => void;
-    onLap: () => void;
-    running: boolean;
+    onPrimary: () => void;
+    onSecondary: () => void;
+    primaryLabel: string;
+    secondaryLabel: string;
+    isRunning: boolean;
+    hasStarted: boolean;
 }
 
-const StopWatchButton: React.FC<StopWatchButtonProps> = ({ onStart, onStop, onReset, onLap, running }) => {
+const StopWatchButton: React.FC<StopWatchButtonProps> = ({
+    onPrimary,
+    onSecondary,
+    primaryLabel,
+    secondaryLabel,
+    isRunning,
+    hasStarted,
+}) => {
+    const buttonStyle = {
+        // Define your button styles here
+    };
+
     return (
         <div>
-            {!running && <button onClick={onStart}>Start</button>}
-            {running && <button onClick={onStop}>Stop</button>}
-            <button onClick={onReset}>Reset</button>
-            <button onClick={onLap}>Lap</button>
+            <button onClick={onPrimary} style={buttonStyle}>
+                {primaryLabel}
+            </button>
+            <button onClick={onSecondary} style={buttonStyle} disabled={!isRunning && !hasStarted}>
+                {secondaryLabel}
+            </button>
         </div>
     );
 };

@@ -7,47 +7,43 @@ export default function App() {
     const [isRunning, setIsRunning] = useState<boolean>(false);
     const [laps, setLaps] = useState<number[]>([]);
 
-    // Effect hook for updating the stopwatch time.
-    // Sets up an interval that updates the time state every 10 milliseconds when the stopwatch is running.
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
         if (isRunning) {
             interval = setInterval(() => {
                 setTime(prevTime => prevTime + 10);
             }, 10);
-        } else if (interval) {
+        } else {
             clearInterval(interval);
         }
-        return () => {
-            if (interval) clearInterval(interval);
-        };
+        return () => interval && clearInterval(interval);
     }, [isRunning]);
 
-    // Starts the stopwatch by setting isRunning to true.
-    const handleStart = () => setIsRunning(true);
-
-    // Stops the stopwatch by setting isRunning to false.
-    const handleStop = () => setIsRunning(false);
-
-    // Resets the stopwatch, clearing the time and laps, and stops the stopwatch.
-    const handleReset = () => {
-        setTime(0);
-        setLaps([]);
-        setIsRunning(false);
+    const handleStartStop = () => {
+        setIsRunning(!isRunning);
     };
 
-    // Records the current time as a lap.
-    const handleLap = () => setLaps(prevLaps => [...prevLaps, time]);
+    const handleLapReset = () => {
+        if (isRunning) {
+            // When running, it records a lap.
+            setLaps(prevLaps => [...prevLaps, time]);
+        } else {
+            // When not running, it resets the stopwatch.
+            setTime(0);
+            setLaps([]);
+        }
+    };
 
     return (
         <div>
             <StopWatch time={time} />
             <StopWatchButton 
-                onStart={handleStart} 
-                onStop={handleStop} 
-                onReset={handleReset} 
-                onLap={handleLap} 
-                running={isRunning} 
+                onPrimary={handleStartStop} 
+                onSecondary={handleLapReset} 
+                primaryLabel={isRunning ? "Stop" : "Start"}
+                secondaryLabel={isRunning ? "Lap" : "Reset"}
+                isRunning={isRunning} 
+                hasStarted={time !== 0}
             />
             {/* Renders a list of recorded laps, if any */}
             {laps.length > 0 && (
